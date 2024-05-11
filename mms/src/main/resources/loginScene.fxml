@@ -11,7 +11,7 @@
       <TextField fx:id="tfUsername" layoutX="226.0" layoutY="112.0" promptText="Username" />
       <TextField fx:id="tfPassword" layoutX="226.0" layoutY="145.0" promptText="Password" />
       <Text layoutX="236.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Login Information:" textAlignment="CENTER" />
-      <Button layoutX="270.0" layoutY="217.0" mnemonicParsing="false" text="Register" />
+      <Button fx:id="registerButton" layoutX="270.0" layoutY="217.0" mnemonicParsing="false" onMouseClicked="#switchToRegister" text="Register" />
       <Text fx:id="failedActionReadout" layoutX="287.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="29.0" />
    </children>
 </AnchorPane>

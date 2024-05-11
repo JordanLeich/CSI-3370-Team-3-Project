@@ -9,6 +9,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
+import com.example.App; // Add this import statement
+
+
 
 
 
@@ -16,32 +21,6 @@ public class loginSceneController{
 
     String user = "123";
     String password = "123";
-
-    
-    private void successfulUserLogin() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("musicPlayer"));
-            Parent root = loader.load();
-            
-            Stage stage = new Stage(); // Create a new instance of Stage
-            stage.setScene(new Scene(root));
-            stage.show(); 
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void loginSequence(MouseEvent event) {
-        String enteredUser = tfUsername.getText();
-        String enteredPassword = tfPassword.getText();
-
-        if(password.equals(enteredPassword) && user.equals(enteredUser)) {
-            successfulUserLogin();
-        } else {
-            failedActionReadout.setText("Your credentials were incorrect");
-        }
-    }
 
     @FXML
     private Text failedActionReadout;
@@ -54,9 +33,30 @@ public class loginSceneController{
 
     @FXML
     private TextField tfUsername;
+    
+    @FXML
+    private Button registerButton;
 
-    
-    
+    @FXML
+    private void switchToRegister(MouseEvent event) throws IOException {
+        App.setRoot("register");
+    }
+    private void switchToMenuScreen() throws IOException {
+        App.setRoot("menu");
+    }
+    @FXML
+    void loginSequence(MouseEvent event) {
+        if(tfUsername.getText().equals(user) && tfPassword.getText().equals(password)){
+            try{
+                switchToMenuScreen();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            failedActionReadout.setText("Invalid username or password");
+        }
+    }
+
 
 
 
