@@ -12,11 +12,4 @@ import javafx.scene.media.MediaPlayer;
 public class musicPlayerController {
 
     
-
-
-    
-    
-
-    
-
 }

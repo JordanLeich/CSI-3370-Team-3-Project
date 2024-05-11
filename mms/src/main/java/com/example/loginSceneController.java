@@ -1,5 +1,4 @@
 package com.example;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +9,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class mainsceneController {
+
+
+
+public class loginSceneController{
 
     String user = "123";
     String password = "123";
@@ -55,5 +57,7 @@ public class mainsceneController {
 
     
     
+
+
 
 }
