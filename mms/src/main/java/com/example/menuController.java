@@ -9,9 +9,6 @@ import javafx.scene.input.MouseEvent;
 public class menuController {
 
     @FXML
-    private Button mainMenuButton;
-
-    @FXML
     private Button musicPlayerMenuButton;
 
     @FXML
@@ -22,6 +19,10 @@ public class menuController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    void goToMainMenu() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

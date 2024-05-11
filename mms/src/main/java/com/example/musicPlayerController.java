@@ -2,53 +2,57 @@ package com.example;
 
 import java.io.File;
 
-import javafx.collections.ModifiableObservableListBase;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class musicPlayerController {
-    MediaPlayer mediaPlayer;
-    // Path to the audio file
-   // String audioFilePath = "audio\\spongeboy.mp3"; // this path is wrong
-   // Media media = new Media(new File(audioFilePath).toURI().toString());
-
-    // Create MediaPlayer
-   // public musicPlayerController() {
-   //     mediaPlayer = new MediaPlayer(media);
-   // }
-    
-    
+    private MediaPlayer mediaPlayer;
+    private menuController menuController; // Assuming you have an instance of MenuController
 
     @FXML
     private Button mainMenuButton;
 
     @FXML
-    private Button pauseButton;
+    public void initialize() {
+        String audioFilePath = "mms" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "audio" + File.separator + "spongeboy.mp3";
+        Media media = new Media(new File(audioFilePath).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+    }
 
-    @FXML
-    private Button playButton;
-
-    @FXML
-    private Button stopButton;
-
-    @FXML
-    void pauseMedia(MouseEvent event) {
-        mediaPlayer.pause();
+    // Method to set MenuController
+    public void setMenuController(menuController menuController) {
+        this.menuController = menuController;
     }
 
     @FXML
-    void playMedia(MouseEvent event) {
-        mediaPlayer.play();
+    void pauseButton(ActionEvent event) {
+        if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.pause();
+        }
     }
 
     @FXML
-    void stopMedia(MouseEvent event) {
-        mediaPlayer.stop();
+    void playButton(ActionEvent event) {
+        if (mediaPlayer != null && (mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED ||
+                mediaPlayer.getStatus() == MediaPlayer.Status.STOPPED)) {
+            mediaPlayer.play();
+        }
     }
 
+    @FXML
+    void stopButton(ActionEvent event) {
+        if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.stop();
+        }
+    }
 
-
+    @FXML
+    void goToMainMenu(ActionEvent event) {
+        if (menuController != null) {
+            menuController.goToMainMenu();
+        }
+    }
 }
