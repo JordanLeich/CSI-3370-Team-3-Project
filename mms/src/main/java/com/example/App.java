@@ -1,8 +1,11 @@
 package com.example;
 
 import java.io.File;
+import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -12,39 +15,26 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
-    private MediaPlayer mediaPlayer;
+    private static Scene scene;
 
     @Override
-    public void start(Stage primaryStage) {
-        // Path to the audio file
-        String audioFilePath = "audio\\spongeboy.mp3";
-        Media media = new Media(new File(audioFilePath).toURI().toString());
+    public void start(Stage stage) throws IOException {
+        scene = new Scene(loadFXML("mainscene"), 640, 480);
+        stage.setScene(scene);
+        stage.show();
+    }
 
-        // Create MediaPlayer
-        mediaPlayer = new MediaPlayer(media);
+    static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
 
-        // Create buttons for play, pause, and stop
-        Button playButton = new Button("Play");
-        Button pauseButton = new Button("Pause");
-        Button stopButton = new Button("Stop");
-
-        // Add event handlers to the buttons
-        playButton.setOnAction(event -> mediaPlayer.play());
-        pauseButton.setOnAction(event -> mediaPlayer.pause());
-        stopButton.setOnAction(event -> mediaPlayer.stop());
-
-        // Arrange buttons horizontally
-        HBox buttonBox = new HBox(10); // 10 pixels spacing between buttons
-        buttonBox.getChildren().addAll(playButton, pauseButton, stopButton);
-
-        // Create the scene and set it in the stage
-        Scene scene = new Scene(buttonBox, 300, 100);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Music Management System");
-        primaryStage.show();
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource( "/" + fxml + ".fxml"));
+        return fxmlLoader.load();
+        
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 }
