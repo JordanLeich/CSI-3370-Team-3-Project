@@ -8,6 +8,5 @@
       <Button layoutX="252.0" layoutY="188.0" mnemonicParsing="false" text="Manage Media" />
       <Button fx:id="musicPlayerMenuButton" layoutX="259.0" layoutY="151.0" mnemonicParsing="false" onMouseClicked="#switchToMusicPlayerScreen" text="Music Player" />
       <Button layoutX="271.0" layoutY="227.0" mnemonicParsing="false" text="Log Out" />
-      <Button fx:id="mainMenuButton" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" text="Main Menu" />
    </children>
 </AnchorPane>
