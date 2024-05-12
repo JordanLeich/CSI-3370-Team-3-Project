@@ -41,7 +41,7 @@ public class musicPlayerController {
     @FXML
     void pauseButton(MouseEvent event) {
         debuglabel.setText("pause"+mediaPlayer.getStatus());
-        if (mediaPlayer != null) {
+        if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
             mediaPlayer.pause();
         }
     }
