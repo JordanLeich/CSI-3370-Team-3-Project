@@ -1,9 +1,13 @@
 package com.example;
 
+import java.io.BufferedWriter;
+
 public class User {
-    
+
+    BufferedWriter writer;
+
     private String username;
-    private String password;
+    private String  password;
 
     public User(String username, String password){
         this.username = username;

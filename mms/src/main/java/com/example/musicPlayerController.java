@@ -28,9 +28,6 @@ public class musicPlayerController {
     private Button stopButton;
 
     @FXML
-    private Label debuglabel;
-
-    @FXML
     public void initialize() {
         String audioFilePath = "mms" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "audio" + File.separator + "spongeboy.mp3";
         Media media = new Media(new File(audioFilePath).toURI().toString());
@@ -40,15 +37,13 @@ public class musicPlayerController {
 
     @FXML
     void pauseButton(MouseEvent event) {
-        debuglabel.setText("pause"+mediaPlayer.getStatus());
         if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
             mediaPlayer.pause();
         }
     }
 
     @FXML
-    void playButton(MouseEvent event) {
-        debuglabel.setText("play"+mediaPlayer.getStatus());
+    void playButton(MouseEvent event) {  
         if (mediaPlayer != null) {
             mediaPlayer.play();
         }
@@ -56,7 +51,6 @@ public class musicPlayerController {
 
     @FXML
     void stopButton(MouseEvent event) {
-        debuglabel.setText("stop" +mediaPlayer.getStatus());
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
@@ -66,7 +60,7 @@ public class musicPlayerController {
         try {
             App.setRoot("menu");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            
             e.printStackTrace();
         }
     }

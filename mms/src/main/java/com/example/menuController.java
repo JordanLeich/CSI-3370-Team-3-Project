@@ -12,17 +12,24 @@ public class menuController {
     private Button musicPlayerMenuButton;
 
     @FXML
-    void switchToMusicPlayerScreen(MouseEvent event) {
+    private Button manageMediaSceneButton;
+
+    @FXML
+    void switchToMusicPlayerScreen(MouseEvent event) throws IOException {
         try {
             App.setRoot("musicPlayer");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    void goToMainMenu() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    @FXML
+    void switchToManageMediaScene(MouseEvent event) throws IOException{
+        try {
+            App.setRoot("manageMedia");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
