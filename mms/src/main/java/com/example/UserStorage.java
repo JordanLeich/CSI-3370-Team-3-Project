@@ -2,50 +2,40 @@ package com.example;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.FileWriter;
 
 public class UserStorage {
     static BufferedReader reader;
-        //file path to where users are stored
+    //file path to where users are stored
     private static final String FILE_PATH = "users.txt";
 
     public static void saveUser(User user) {
-
-
-        try {
-            
-        //save user to users.txt
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
+            writer.write(user.toString());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void  userExists(String username) {
-        //check if user exists in users.txt given username
-        try {
-            reader = new BufferedReader(new FileReader(FILE_PATH));
+    public static boolean userExists(String username, String password) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
-            boolean userExists = false;
-            while((line = reader.readLine()) != null) {
-                if(line.equals(username)) {
-                    userExists = true;
-                    break; // break out of loop
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 2 && parts[0].equals(username) && parts[1].equals(password)) {
+                    return true;
                 }
-            }
-            if(userExists) {
-                //set label that user is not available
-            } else {
-                //set label that user is available
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } 
         }
-
+        return false;
+    }
 }
-
-
-
-    
-
