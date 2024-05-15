@@ -3,6 +3,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -16,14 +17,16 @@ public class loginSceneController{
     String user = "123";
     String password = "123";
 
+     @FXML
+    private PasswordField pfPassword;
+
     @FXML
     private Text failedActionReadout;
 
     @FXML
     private Button loginButton;
 
-    @FXML
-    private TextField tfPassword;
+    
 
     @FXML
     private TextField tfUsername;
@@ -40,7 +43,7 @@ public class loginSceneController{
     }
     @FXML
     void loginSequence(MouseEvent event) {
-        if(tfUsername.getText().equals(user) && tfPassword.getText().equals(password)){
+        if(tfUsername.getText().equals(user) && pfPassword.getText().equals(password)){
             try{
                 switchToMenuScreen();
             }catch(Exception e){

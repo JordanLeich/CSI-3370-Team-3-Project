@@ -12,6 +12,10 @@ public class UserStorage {
     private static final String FILE_PATH = "users.txt";
 
     public static void saveUser(User user) {
+
+
+        try {
+            
         //save user to users.txt
     }
 
