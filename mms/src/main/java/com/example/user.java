@@ -7,10 +7,12 @@ import java.util.List;
 public class User {
 
     BufferedWriter writer;
-
+    private String firstName;
     private String username;
     private String  password;
-    private List<String> playlists;
+    private List<playlist> playlists;
+    private List<Song> songs;
+    private boolean currentUser;
 
     public User(String username, String password){
         this.username = username;

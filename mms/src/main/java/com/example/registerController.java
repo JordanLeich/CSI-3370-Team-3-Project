@@ -46,16 +46,16 @@ public class registerController {
         String username = tfUsername.getText();
         String password = pfPassword.getText();
         
-        // Check if the user already exists
-        if (UserStorage.userExists(username)) {
+        
+        if (UserStorage.userExists(username, password)) {
             debugLabel.setText("User already exists.");
-            // Handle user exists scenario (show error message, etc.)
+            
         } else {
-            // Save the user if they don't exist
-            User newUser = new User(username, password); // Assuming User class has a constructor with username and password
+            
+            User newUser = new User(username, password); 
             UserStorage.saveUser(newUser);
             debugLabel.setText("User registered successfully.");
-            // Handle successful registration (navigate to another screen, show success message, etc.)
+            
         }
     }
     
