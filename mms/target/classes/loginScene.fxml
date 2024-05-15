@@ -5,6 +5,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: A5A5A5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginSceneController">
@@ -24,6 +25,9 @@
             <Image url="@icons8-password-50.png" />
          </image>
       </ImageView>
-      <Text layoutX="289.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="181.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome! Please sign in">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
    </children>
 </AnchorPane>
