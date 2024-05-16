@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 
 
 
-public class loginSceneController{
+public class loginController{
 
     String user = "123";
     String password = "123";

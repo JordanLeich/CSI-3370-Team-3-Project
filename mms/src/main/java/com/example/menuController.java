@@ -32,4 +32,14 @@ public class menuController {
         }
     }
 
+    @FXML
+    void goToLogin(MouseEvent event) {
+        try {
+            App.setRoot("login");
+        } catch (IOException e) {
+            
+            e.printStackTrace();
+        }
+    }
+
 }
