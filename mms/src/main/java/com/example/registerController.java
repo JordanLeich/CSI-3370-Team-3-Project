@@ -1,5 +1,7 @@
 package com.example;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -39,6 +41,16 @@ public class registerController {
 
     @FXML
     private TextField tfUsername;
+
+    @FXML
+    void goToLogin(MouseEvent event) {
+        try {
+            App.setRoot("login");
+        } catch (IOException e) {
+            
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void attemptRegisterUser(MouseEvent event) {
