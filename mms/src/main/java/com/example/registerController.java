@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -11,12 +12,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 public class registerController {
+  
+    @FXML
+    private Label debugLabel;
 
     @FXML
     private Button accountExistButton;
-
-    @FXML
-    private Text debugLabel;
 
     @FXML
     private Button attemptRegisterButton;
@@ -66,7 +67,7 @@ public class registerController {
             
             User newUser = new User(username, password); 
             UserStorage.saveUser(newUser);
-            debugLabel.setText("User registered successfully.");
+            debugLabel.setText(newUser.toString() + " has been registered.");
             
         }
     }

@@ -15,11 +15,13 @@ public class UserStorage {
 
     public static void saveUser(User user) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            writer.write(user.toString());
+            writer.write(user.getUsername() + ":" + user.getPassword());
             writer.newLine();
+            writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
+       
     }
 
     public static boolean userExists(String username, String password) {
