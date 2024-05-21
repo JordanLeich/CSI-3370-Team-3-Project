@@ -22,12 +22,8 @@ public class manageMediaController {
             new FileChooser.ExtensionFilter("Audio Files", "*.mp3", "*.wav", "*.aac", "*.ogg", "*.m4a"),
             new FileChooser.ExtensionFilter("All Files", "*.*")
         );
-
-        // Obtain the current stage from the event source
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
         File selectedFile = fileChooser.showOpenDialog(stage);
-        
         if (selectedFile != null) {
             try { 
                 Path destinationDirectory = Path.of("mms", "src", "main", "resources", "audio");
@@ -35,10 +31,10 @@ public class manageMediaController {
                 Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
                 Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
 
-                System.out.println("File copied to: " + destinationFile);
+                System.out.println("File copied to correct location.");
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("File copy failed: " + e.getMessage());
+                System.out.println("File copy failed.");
             }
         } else {
             System.out.println("File selection cancelled.");
