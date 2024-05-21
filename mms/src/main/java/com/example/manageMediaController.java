@@ -24,17 +24,17 @@ public class manageMediaController {
         );
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
+
         if (selectedFile != null) {
             try { 
                 Path destinationDirectory = Path.of("mms", "src", "main", "resources", "audio");
                 Files.createDirectories(destinationDirectory);
                 Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
                 Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
-
-                System.out.println("File copied to correct location.");
+                System.out.println("File copied audio path in project!");
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("File copy failed.");
+                System.out.println("File copy failed. Please try again.");
             }
         } else {
             System.out.println("File selection cancelled.");
