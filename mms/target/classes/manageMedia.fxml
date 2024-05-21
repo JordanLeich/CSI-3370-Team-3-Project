@@ -15,8 +15,8 @@
       <Accordion layoutX="334.0" layoutY="98.0" />
       <ButtonBar layoutX="22.0" layoutY="101.0" prefHeight="46.0" prefWidth="222.0">
         <buttons>
-            <Button mnemonicParsing="false" text="Add" />
-            <Button minWidth="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Delete" />
+            <Button fx:id="addButton" mnemonicParsing="false" text="Add" onMouseClicked="#handleAddButtonAction"/>
+            <Button fx:id="deleteButton" minWidth="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Delete" onMouseClicked="#handleDeleteButtonAction"/>
         </buttons>
       </ButtonBar>
       <ButtonBar layoutX="311.0" layoutY="101.0" prefHeight="46.0" prefWidth="267.0">
