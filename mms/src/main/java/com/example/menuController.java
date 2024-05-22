@@ -2,6 +2,7 @@ package com.example;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +41,11 @@ public class menuController {
             
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void quitApplication(MouseEvent event) {
+        Platform.exit();
     }
 
 }
