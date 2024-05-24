@@ -14,9 +14,6 @@ import javafx.scene.text.Text;
 
 public class loginController{
 
-    String user = "123";
-    String password = "123";
-
      @FXML
     private PasswordField pfPassword;
 
@@ -25,8 +22,6 @@ public class loginController{
 
     @FXML
     private Button loginButton;
-
-    
 
     @FXML
     private TextField tfUsername;
@@ -43,7 +38,7 @@ public class loginController{
     }
     @FXML
     void loginSequence(MouseEvent event) {
-        if(tfUsername.getText().equals(user) && pfPassword.getText().equals(password)){
+        if(UserStorage.userExists(tfUsername.getText(), pfPassword.getText())){
             try{
                 switchToMenuScreen();
             }catch(Exception e){
