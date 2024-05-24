@@ -1,12 +1,15 @@
 package com.example;
 import java.io.IOException;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 
 
 
@@ -18,7 +21,7 @@ public class loginController{
     private PasswordField pfPassword;
 
     @FXML
-    private Text failedActionReadout;
+    private Label failedActionReadout;
 
     @FXML
     private Button loginButton;
@@ -45,7 +48,12 @@ public class loginController{
                 e.printStackTrace();
             }
         }else{
-            failedActionReadout.setText("Invalid username or password");
+            failedActionReadout.setText("Account does not exist or credentials are incorrect!");
+            FadeTransition ft = new FadeTransition(Duration.seconds(2.5), failedActionReadout);
+            ft.setFromValue(1);
+            ft.setToValue(0);
+            ft.play();
+
         }
     }
 
