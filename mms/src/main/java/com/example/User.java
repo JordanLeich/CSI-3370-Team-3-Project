@@ -8,7 +8,7 @@ public class User {
     private String firstName;
     private String username;
     private String  password;
-    private List<playlist> playlists;
+    private List<Playlist> playlists;
     private List<Song> songs;
     private boolean currentUser;
 
@@ -36,6 +36,13 @@ public class User {
     @Override
     public String toString() {
         return   username+":"+password;
+    }
+
+    public void addPlaylistToUser(Playlist playlist) {
+        playlists.add(playlist);
+    }
+    public void removePlaylistFromUser(Playlist playlist) {
+        playlists.remove(playlist);
     }
 
 
