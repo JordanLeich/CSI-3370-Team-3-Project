@@ -6,14 +6,39 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 
 public class manageMediaController {
 
+    @FXML
+    private ButtonBar ButtonBarID;
+
+    @FXML
+    private Button DeleteID;
+
+    @FXML
+    private Button AddID;
+
+    @FXML
+    private TextField SeachID;
+
+    @FXML
+    private ImageView searchImageid;
+
+
+    private File selectedFile; //declared class level so we can use it in add/delete
+
+
+    //debug this ....
     @FXML
     void handleAddButtonAction(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -40,11 +65,32 @@ public class manageMediaController {
             System.out.println("File selection cancelled.");
         }
     }
+    
 
     @FXML
-    void handleDeleteButtonAction() {
+    void deleteSelectedSong(ActionEvent event) {
+
+        //NOTE: need to edit FXML file
+
+  
+        //deleting selected file
+        if (selectedFile.exists()) {
+            if (selectedFile.delete()) 
+            { 
+                System.out.println("File sucessfully deleted");
+            }
+            else 
+            {
+                System.out.println("ERROR: File cannot be deleted");
+            }
+             
+        }
+
+        //confirmation
         System.out.println("Delete button clicked!");
     }
+
+   
 
     @FXML
     void goToMainMenu(MouseEvent event) {
@@ -56,3 +102,8 @@ public class manageMediaController {
         }
     }
 }
+
+
+
+
+

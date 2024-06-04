@@ -33,5 +33,7 @@
          </font>
       </Text>
       <Button fx:id="mainMenuButton" layoutX="261.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#goToMainMenu" text="Main Menu" />
+      <Button fx:id="DeleteID" text="Delete" onAction="#deleteSelectedSong" />
+      
    </children>
 </AnchorPane>
