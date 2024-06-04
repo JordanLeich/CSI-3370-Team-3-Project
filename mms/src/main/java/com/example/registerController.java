@@ -9,7 +9,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 
 public class registerController {
   
@@ -50,25 +49,6 @@ public class registerController {
         } catch (IOException e) {
             
             e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void attemptRegisterUser(MouseEvent event) {
-        String firstName = tfFirstName.getText();
-        String username = tfUsername.getText();
-        String password = pfPassword.getText();
-        
-        
-        if (UserStorage.userExists(username, password)) {
-            debugLabel.setText("User already exists.");
-            
-        } else {
-            
-            User newUser = new User(username, password); 
-            UserStorage.saveUser(newUser);
-            debugLabel.setText(newUser.toString() + " has been registered.");
-            
         }
     }
     
