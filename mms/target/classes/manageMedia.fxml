@@ -16,8 +16,7 @@
       <ButtonBar layoutX="22.0" layoutY="101.0" prefHeight="46.0" prefWidth="222.0">
         <buttons>
             <Button mnemonicParsing="false" text="Add" />
-            <Button fx:id="DeleteID" text="Delete" onAction="#deleteSelectedSong" />
-            
+            <Button minWidth="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Delete" />
         </buttons>
       </ButtonBar>
       <ButtonBar layoutX="311.0" layoutY="101.0" prefHeight="46.0" prefWidth="267.0">
@@ -34,7 +33,7 @@
          </font>
       </Text>
       <Button fx:id="mainMenuButton" layoutX="261.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#goToMainMenu" text="Main Menu" />
-      
+      <Button fx:id="DeleteID" text="Delete" onAction="#deleteSelectedSong" />
       
    </children>
 </AnchorPane>
