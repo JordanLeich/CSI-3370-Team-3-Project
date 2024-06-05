@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-
-    private String firstName;
     private String username;
-    private String  password;
+    private String password;
     private List<Playlist> playlists;
-    private List<Song> songs;
-    private boolean currentUser;
 
-    public User(String username, String password){
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.playlists = new ArrayList<>();
@@ -33,21 +29,17 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
     @Override
     public String toString() {
-        return   username+":"+password;
+        return username + ":" + password;
     }
 
     public void addPlaylistToUser(Playlist playlist) {
         playlists.add(playlist);
     }
+
     public void removePlaylistFromUser(Playlist playlist) {
         playlists.remove(playlist);
     }
-
-
-
-
-
-
 }
