@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -68,15 +67,32 @@ public class manageMediaController {
     
 
     @FXML
-    void deleteSelectedSong(ActionEvent event) {
+    void deleteSelectedSong(MouseEvent event) {
 
-        //NOTE: need to edit FXML file
+        //selecting and deleting file
+        /*plan ---
+        1. will open the file path where the songs are on file explorer
+        2. user will select song and confirm it
+        3. song will be deleted, not show up on file explorer
+        - also song should not be able to play after deletion
+        */
 
-  
-        //deleting selected file
+        //open file path
+        FileChooser fileSelect = new FileChooser();
+        Path destinationDirectory = Path.of("mms", "src", "main", "resources", "audio");
+
+
+        //select file
+        Stage stage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        selectedFile = fileSelect.showOpenDialog(stage2);
+    
+        //deletion and ...
+        selectedFile.delete();
+        //confirmation of deletion
         if (selectedFile.exists()) {
             if (selectedFile.delete()) 
             { 
+
                 System.out.println("File sucessfully deleted");
             }
             else 
