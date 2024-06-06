@@ -2,18 +2,18 @@ package com.example;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.control.ToggleButton;
 import javafx.util.Duration;
 
 public class musicPlayerController {
@@ -70,8 +70,8 @@ private Label artistNameLabel;
     void initialize() {
         // Initializes playlist
         playlist = new ArrayList<>();
-        playlist.add(new Song("First Song", "Artist1", "path_to_your_first_audio_file.mp3"));
-        playlist.add(new Song("Second Song", "Artist2", "path_to_your_second_audio_file.mp3"));
+        playlist.add(new Song("Deeper", "Unknown Artist", "mms\\src\\main\\resources\\audio\\Deeper.mp3"));
+        playlist.add(new Song("Spongeboy", "Spongeboy", "mms\\src\\main\\resources\\audio\\spongeboy.mp3"));
         // Adds more songs as needed
 
         // Stores the original order of the playlist you're in
