@@ -27,9 +27,4 @@ public class Playlist {
     public void removeSong(Song song) {
         songs.remove(song);
     }
-
-    public void createPlaylist(String playlistName) {
-        Playlist newPlaylist = new Playlist(playlistName);
-
-    }
 }

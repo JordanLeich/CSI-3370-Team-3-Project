@@ -1,4 +1,5 @@
 package com.example;
+
 import java.io.IOException;
 
 import javafx.animation.FadeTransition;
@@ -9,10 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
-
-
-
-
 
 
 public class loginController{
