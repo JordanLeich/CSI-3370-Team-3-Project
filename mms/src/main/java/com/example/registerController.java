@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 public class registerController {
-  
+
     @FXML
     private Label debugLabel;
 
@@ -22,22 +22,16 @@ public class registerController {
     private Button attemptRegisterButton;
 
     @FXML
-    private RadioButton intialPackageNoRadio;
+    private RadioButton initialPackageNoRadio;
 
     @FXML
-    private RadioButton intialPackageYesRadio;
+    private RadioButton initialPackageYesRadio;
 
     @FXML
     private PasswordField pfPassword;
 
     @FXML
     private PasswordField pfPasswordConfirmation;
-
-    @FXML
-    private TextField tfFirstName;
-
-    @FXML
-    private TextField tfLastName;
 
     @FXML
     private TextField tfUsername;
@@ -47,10 +41,52 @@ public class registerController {
         try {
             App.setRoot("login");
         } catch (IOException e) {
-            
             e.printStackTrace();
         }
     }
-    
-}
 
+    @FXML
+    void attemptRegisterUser(MouseEvent event) {
+        String username = tfUsername.getText();
+        String password = pfPassword.getText();
+        String passwordConfirmation = pfPasswordConfirmation.getText();
+       
+
+        if (username.isEmpty() || password.isEmpty() || passwordConfirmation.isEmpty() ) {
+            debugLabel.setText("All fields are required.");
+            return;
+        }
+
+        if (!password.equals(passwordConfirmation)) {
+            debugLabel.setText("Passwords do not match.");
+            return;
+        }
+
+        if (UserStorage.userExists(username, password)) {
+            debugLabel.setText("Username already exists.");
+            return;
+        }
+
+        User newUser = new User(username, password);
+
+        
+        if (initialPackageYesRadio.isSelected()) {
+            newUser.getUploadedSongs().addAll(InitialSongs.getInitialSongs());
+        }
+
+        UserStorage.saveUser(newUser);
+
+        debugLabel.setText("User registered successfully!");
+        clearFields();
+    }
+
+    private void clearFields() {
+        tfUsername.clear();
+        pfPassword.clear();
+        pfPasswordConfirmation.clear();
+        tfFirstName.clear();
+        tfLastName.clear();
+        initialPackageNoRadio.setSelected(false);
+        initialPackageYesRadio.setSelected(false);
+    }
+}

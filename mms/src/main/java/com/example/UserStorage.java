@@ -1,43 +1,52 @@
 package com.example;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class UserStorage {
-    static BufferedReader reader;
-    //file path to where users are stored
-    private static final String FILE_PATH = "users.txt";
+    private static final String FILE_PATH = "users.json";
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static List<User> users = new ArrayList<>();
+
+    static {
+        loadUsers();
+    }
 
     public static void saveUser(User user) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            writer.write(user.getUsername() + ":" + user.getPassword());
-            writer.newLine();
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-       
+        users.add(user);
+        saveUsers();
     }
 
     public static boolean userExists(String username, String password) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(":");
-                if (parts.length == 2 && parts[0].equals(username) && parts[1].equals(password)) {
-                    return true;
-                }
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return true;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static void saveUsers() {
+        try {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(FILE_PATH), users);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+    }
+
+    public static List<User> getUsers() {
+        return users;
+    }
+
+    public static void loadUsers() {
+        try {
+            users = new ArrayList<>(List.of(objectMapper.readValue(new File(FILE_PATH), User[].class)));
+        } catch (IOException e) {
+            users = new ArrayList<>();
+        }
     }
 }

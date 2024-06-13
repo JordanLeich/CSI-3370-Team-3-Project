@@ -3,11 +3,15 @@ package com.example;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Playlist {
     private String name;
     private List<Song> songs;
 
-    public Playlist(String name) {
+    public Playlist(@JsonProperty("name") String name) {
         this.name = name;
         this.songs = new ArrayList<>();
     }
@@ -26,5 +30,13 @@ public class Playlist {
 
     public void removeSong(Song song) {
         songs.remove(song);
+    }
+
+    @Override
+    public String toString() {
+        return "Playlist{" +
+                "name='" + name + '\'' +
+                ", songs=" + songs +
+                '}';
     }
 }

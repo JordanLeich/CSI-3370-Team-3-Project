@@ -11,10 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+public class loginController {
 
-public class loginController{
-
-     @FXML
+    @FXML
     private PasswordField pfPassword;
 
     @FXML
@@ -25,7 +24,7 @@ public class loginController{
 
     @FXML
     private TextField tfUsername;
-    
+
     @FXML
     private Button registerButton;
 
@@ -33,24 +32,28 @@ public class loginController{
     private void switchToRegister(MouseEvent event) throws IOException {
         App.setRoot("register");
     }
+
     private void switchToMenuScreen() throws IOException {
         App.setRoot("menu");
     }
+
     @FXML
     void loginSequence(MouseEvent event) {
-        if(UserStorage.userExists(tfUsername.getText(), pfPassword.getText())){
-            try{
+        String username = tfUsername.getText();
+        String password = pfPassword.getText();
+
+        if (UserStorage.userExists(username, password)) {
+            try {
                 switchToMenuScreen();
-            }catch(Exception e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             failedActionReadout.setText("Account does not exist or credentials are incorrect!");
             FadeTransition ft = new FadeTransition(Duration.seconds(2.5), failedActionReadout);
             ft.setFromValue(1);
             ft.setToValue(0);
             ft.play();
-
         }
     }
 }

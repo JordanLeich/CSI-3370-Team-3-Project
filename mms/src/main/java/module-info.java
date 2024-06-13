@@ -4,6 +4,7 @@ module com.example {
     requires javafx.media;
     requires transitive javafx.graphics;
     requires java.desktop;
+    requires com.fasterxml.jackson.databind;
 
     opens com.example to javafx.fxml;
     exports com.example;

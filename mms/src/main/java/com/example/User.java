@@ -3,15 +3,21 @@ package com.example;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     private String username;
     private String password;
     private List<Playlist> playlists;
+    private List<Song> uploadedSongs;
 
-    public User(String username, String password) {
+    public User(@JsonProperty("username") String username, @JsonProperty("password") String password) {
         this.username = username;
         this.password = password;
         this.playlists = new ArrayList<>();
+        this.uploadedSongs = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -30,9 +36,20 @@ public class User {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return username + ":" + password;
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
+    }
+
+    public List<Song> getUploadedSongs() {
+        return uploadedSongs;
+    }
+
+    public void setUploadedSongs(List<Song> uploadedSongs) {
+        this.uploadedSongs = uploadedSongs;
     }
 
     public void addPlaylistToUser(Playlist playlist) {
@@ -42,4 +59,23 @@ public class User {
     public void removePlaylistFromUser(Playlist playlist) {
         playlists.remove(playlist);
     }
+
+    public void addSongToUser(Song song) {
+        uploadedSongs.add(song);
+    }
+
+    public void removeSongFromUser(Song song) {
+        uploadedSongs.remove(song);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", playlists=" + playlists +
+                ", uploadedSongs=" + uploadedSongs +
+                '}';
+    }
+
+    
 }

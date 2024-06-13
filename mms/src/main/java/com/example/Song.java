@@ -1,11 +1,15 @@
 package com.example;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Song {
     private String title;
     private String artist;
     private String filePath;
 
-    public Song(String title, String artist, String filePath) {
+    public Song(@JsonProperty("title") String title, @JsonProperty("artist") String artist, @JsonProperty("filePath") String filePath) {
         this.title = title;
         this.artist = artist;
         this.filePath = filePath;
@@ -33,5 +37,14 @@ public class Song {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", filePath='" + filePath + '\'' +
+                '}';
     }
 }
