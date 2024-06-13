@@ -102,9 +102,12 @@ private Label artistNameLabel;
         });
 
         // Initializes volume slider
-        volumeSlider.setValue(mediaPlayer.getVolume());
+        volumeSlider.setValue(mediaPlayer.getVolume() * 100); 
         volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            mediaPlayer.setVolume(newVal.doubleValue());
+            if (mediaPlayer != null) {
+                mediaPlayer.setVolume(newVal.doubleValue() / 100.0); 
+            }
+            System.out.println("I moved the volumeSlider!");
         });
 
         // Handles the repeat button toggle
@@ -131,8 +134,23 @@ private Label artistNameLabel;
         }
         Media media = new Media(new File(song.getFilePath()).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setVolume(volumeSlider.getValue() / 100.0); // Scale the slider value to 0-1
         mediaPlayer.setOnEndOfMedia(this::playNext);
         mediaPlayer.play();
+        
+        // Bind the slider to the new media player instance
+        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            if (!progressBar.isValueChanging()) {
+                progressBar.setValue(newTime.toSeconds());
+                elapsedTimeLabel.setText(formatTime(newTime));
+            }
+        });
+        
+        mediaPlayer.setOnReady(() -> {
+            progressBar.setMax(mediaPlayer.getMedia().getDuration().toSeconds());
+            totalTimeLabel.setText(formatTime(mediaPlayer.getMedia().getDuration()));
+        });
+    
         // Updates the song name label
         songNameLabel.setText("Playing... " + song.getTitle());
         // Updates the artist name label
