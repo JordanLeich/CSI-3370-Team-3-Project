@@ -1,27 +1,40 @@
 [ {
-  "username" : "john_doe",
-  "password" : "password123",
-  "playlists" : [ {
-    "name" : "My Playlist",
-    "songs" : [ {
-      "title" : "Song 1",
-      "artist" : "Artist 1",
-      "filePath" : "/path/to/song1.mp3"
-    }, {
-      "title" : "Song 2",
-      "artist" : "Artist 2",
-      "filePath" : "/path/to/song2.mp3"
-    } ]
-  } ],
-  "uploadedSongs" : [ ]
+  "username" : "z",
+  "password" : "z",
+  "playlists" : [ ],
+  "uploadedSongs" : [ {
+    "title" : "title",
+    "artist" : "artist",
+    "filePath" : "song path"
+  }, {
+    "title" : "title",
+    "artist" : "artist",
+    "filePath" : "song path"
+  }, {
+    "title" : "title",
+    "artist" : "artist",
+    "filePath" : "song path"
+  } ]
 }, {
   "username" : "a",
   "password" : "b",
   "playlists" : [ ],
-  "uploadedSongs" : [ ]
+  "uploadedSongs" : [ {
+    "title" : "title",
+    "artist" : "artist",
+    "filePath" : "song path"
+  }, {
+    "title" : "title",
+    "artist" : "artist",
+    "filePath" : "song path"
+  }, {
+    "title" : "title",
+    "artist" : "artist",
+    "filePath" : "song path"
+  } ]
 }, {
-  "username" : "c",
-  "password" : "d",
+  "username" : "1",
+  "password" : "1",
   "playlists" : [ ],
   "uploadedSongs" : [ {
     "title" : "title",

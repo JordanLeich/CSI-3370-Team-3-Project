@@ -44,9 +44,17 @@ public class UserStorage {
 
     public static void loadUsers() {
         try {
-            users = new ArrayList<>(List.of(objectMapper.readValue(new File(FILE_PATH), User[].class)));
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                users = new ArrayList<>(List.of(objectMapper.readValue(file, User[].class)));
+                System.out.println("Users loaded from file: " + users); 
+            } else {
+                users = new ArrayList<>();
+                System.out.println("File does not exist, initializing empty users list."); 
+            }
         } catch (IOException e) {
             users = new ArrayList<>();
+            e.printStackTrace();
         }
     }
 }

@@ -46,11 +46,14 @@ public class registerController {
     }
 
     @FXML
-    void attemptRegisterUser(MouseEvent event) {
+    void attemptRegisterUser(MouseEvent event) {    
         String username = tfUsername.getText();
         String password = pfPassword.getText();
         String passwordConfirmation = pfPasswordConfirmation.getText();
-       
+        
+        if (UserStorage.userExists(username,password)){
+        debugLabel.setText(password);
+        }
 
         if (username.isEmpty() || password.isEmpty() || passwordConfirmation.isEmpty() ) {
             debugLabel.setText("All fields are required.");
@@ -76,7 +79,7 @@ public class registerController {
 
         UserStorage.saveUser(newUser);
 
-        debugLabel.setText("User registered successfully!");
+       // debugLabel.setText("User registered successfully!");
         clearFields();
     }
 
@@ -84,8 +87,6 @@ public class registerController {
         tfUsername.clear();
         pfPassword.clear();
         pfPasswordConfirmation.clear();
-        tfFirstName.clear();
-        tfLastName.clear();
         initialPackageNoRadio.setSelected(false);
         initialPackageYesRadio.setSelected(false);
     }

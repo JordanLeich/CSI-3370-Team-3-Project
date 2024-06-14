@@ -6,6 +6,6 @@ module com.example {
     requires java.desktop;
     requires com.fasterxml.jackson.databind;
 
-    opens com.example to javafx.fxml;
+    opens com.example to javafx.fxml, com.fasterxml.jackson.databind;
     exports com.example;
 }

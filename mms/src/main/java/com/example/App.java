@@ -14,6 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        UserStorage.loadUsers();
         scene = new Scene(loadFXML("login"), 640, 480);
         stage.setScene(scene);
         stage.show();
@@ -30,6 +31,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        
         //if you want to see/test things like objects or printing stuff you can put it here and check your system output
         launch();
     }
