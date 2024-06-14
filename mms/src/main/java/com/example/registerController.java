@@ -79,7 +79,7 @@ public class registerController {
 
         UserStorage.saveUser(newUser);
 
-       // debugLabel.setText("User registered successfully!");
+        debugLabel.setText("User registered successfully!");
         clearFields();
     }
 

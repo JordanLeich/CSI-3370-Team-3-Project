@@ -39,7 +39,6 @@ public class loginController {
 
     @FXML
     void loginSequence(MouseEvent event) {
-        UserStorage.loadUsers(); // Ensure users are loaded
         String username = tfUsername.getText();
         String password = pfPassword.getText();
 

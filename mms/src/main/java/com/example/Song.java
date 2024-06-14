@@ -1,9 +1,9 @@
 package com.example;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Song {
     private String title;
     private String artist;
