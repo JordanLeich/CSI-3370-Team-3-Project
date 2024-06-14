@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 public class User {
     private String username;
     private String password;
@@ -75,6 +74,4 @@ public class User {
                 ", uploadedSongs=" + uploadedSongs +
                 '}';
     }
-
-    
 }

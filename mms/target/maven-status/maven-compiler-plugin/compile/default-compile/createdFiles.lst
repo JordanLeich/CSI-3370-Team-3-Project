@@ -1,12 +1,13 @@
 com\example\loginController.class
-com\example\musicPlayerController.class
-com\example\User.class
+com\example\InitialSongs.class
 com\example\Song.class
 com\example\menuController.class
 com\example\registerController.class
 com\example\UserStorage.class
-com\example\manageMediaController.class
-com\example\Playlist.class
 module-info.class
 com\example\App.class
+com\example\musicPlayerController.class
+com\example\User.class
+com\example\manageMediaController.class
+com\example\Playlist.class
 com\example\PlaylistManager.class

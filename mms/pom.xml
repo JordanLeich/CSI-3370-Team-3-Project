@@ -103,6 +103,7 @@
                 <configuration>
                     <includes>
                         <include>**/PlaylistTest.java</include>
+                        <include>**/UserTest.java</include>
                     </includes>
                 </configuration>
             </plugin>
