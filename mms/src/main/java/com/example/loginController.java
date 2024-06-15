@@ -43,6 +43,8 @@ public class loginController {
         String password = pfPassword.getText();
 
         if (UserStorage.userExists(username, password)) {
+            User user = UserStorage.getUser(username); // Implement this method to retrieve the user
+            CurrentUser.getInstance().setUser(user);
             try {
                 switchToMenuScreen();
             } catch (IOException e) {

@@ -1,52 +1,48 @@
 [ {
-  "username" : "z",
-  "password" : "z",
-  "playlists" : [ ],
-  "uploadedSongs" : [ {
-    "title" : "title",
-    "artist" : "artist",
-    "filePath" : "song path"
-  }, {
-    "title" : "title",
-    "artist" : "artist",
-    "filePath" : "song path"
-  }, {
-    "title" : "title",
-    "artist" : "artist",
-    "filePath" : "song path"
-  } ]
-}, {
-  "username" : "a",
-  "password" : "b",
-  "playlists" : [ ],
-  "uploadedSongs" : [ {
-    "title" : "title",
-    "artist" : "artist",
-    "filePath" : "song path"
-  }, {
-    "title" : "title",
-    "artist" : "artist",
-    "filePath" : "song path"
-  }, {
-    "title" : "title",
-    "artist" : "artist",
-    "filePath" : "song path"
-  } ]
-}, {
   "username" : "1",
   "password" : "1",
-  "playlists" : [ ],
+  "playlists" : [ {
+    "name" : "fesfse",
+    "songs" : [ {
+      "title" : "sample-6s.mp3",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\playlists\\fesfse\\sample-6s.mp3"
+    }, {
+      "title" : "sample-6s.mp3",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\audio\\sample-6s.mp3"
+    }, {
+      "title" : "sample-3s.mp3",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\audio\\sample-3s.mp3"
+    } ]
+  }, {
+    "name" : "anorher",
+    "songs" : [ {
+      "title" : "sample-15s.mp3",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\playlists\\anorher\\sample-15s.mp3"
+    }, {
+      "title" : "sample-3s.mp3",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\audio\\sample-3s.mp3"
+    }, {
+      "title" : "sample-6s.mp3",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\audio\\sample-6s.mp3"
+    } ]
+  } ],
   "uploadedSongs" : [ {
-    "title" : "title",
-    "artist" : "artist",
-    "filePath" : "song path"
+    "title" : "sample-6s.mp3",
+    "artist" : "Unknown Artist",
+    "filePath" : "mms\\src\\main\\resources\\audio\\sample-6s.mp3"
   }, {
-    "title" : "title",
-    "artist" : "artist",
-    "filePath" : "song path"
+    "title" : "sample-3s.mp3",
+    "artist" : "Unknown Artist",
+    "filePath" : "mms\\src\\main\\resources\\audio\\sample-3s.mp3"
   }, {
-    "title" : "title",
-    "artist" : "artist",
-    "filePath" : "song path"
+    "title" : "sample-15s.mp3",
+    "artist" : "Unknown Artist",
+    "filePath" : "mms\\src\\main\\resources\\audio\\sample-15s.mp3"
   } ]
 } ]

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,7 +14,6 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -38,6 +38,9 @@ public class manageMediaController {
     private ListView<String> playlistView;
 
     @FXML
+    private ListView<String> songView;
+
+    @FXML
     private TextField playlistNameField;
 
     private PlaylistManager playlistManager;
@@ -48,10 +51,31 @@ public class manageMediaController {
     public void initialize() {
         playlistManager = new PlaylistManager();
         updatePlaylistView();
+        updateSongView();
+    }
+
+    private void updatePlaylistView() {
+        playlistView.getItems().clear();
+        User currentUser = CurrentUser.getInstance().getUser();
+        if (currentUser != null) {
+            for (Playlist playlist : currentUser.getPlaylists()) {
+                playlistView.getItems().add(playlist.getName());
+            }
+        }
+    }
+
+    private void updateSongView() {
+        songView.getItems().clear();
+        User currentUser = CurrentUser.getInstance().getUser();
+        if (currentUser != null) {
+            for (Song song : currentUser.getUploadedSongs()) {
+                songView.getItems().add(song.getTitle());
+            }
+        }
     }
 
     @FXML
-    void handleAddButtonAction(MouseEvent event) {
+    void handleAddButtonAction(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Media File");
         fileChooser.getExtensionFilters().addAll(
@@ -67,6 +91,13 @@ public class manageMediaController {
                 Files.createDirectories(destinationDirectory);
                 Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
                 Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
+
+                User currentUser = CurrentUser.getInstance().getUser();
+                Song newSong = new Song(selectedFile.getName(), "Unknown Artist", destinationFile.toString());
+                currentUser.addSongToUser(newSong);
+                UserStorage.saveUser(currentUser);
+
+                updateSongView();
                 System.out.println("File copied to audio path in project!");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -78,7 +109,7 @@ public class manageMediaController {
     }
 
     @FXML
-    void deleteSelectedSong(MouseEvent event) {
+    void deleteSelectedSong(ActionEvent event) {
         FileChooser fileSelect = new FileChooser();
         Path destinationDirectory = Path.of("mms", "src", "main", "resources", "audio");
 
@@ -86,6 +117,12 @@ public class manageMediaController {
         selectedFile = fileSelect.showOpenDialog(stage2);
 
         if (selectedFile != null && selectedFile.exists() && selectedFile.delete()) {
+            
+            User currentUser = CurrentUser.getInstance().getUser();
+            currentUser.removeSongFromUser(new Song(selectedFile.getName(), "Unknown Artist", selectedFile.toString()));
+            UserStorage.saveUser(currentUser);
+
+            updateSongView();
             System.out.println("File successfully deleted");
         } else {
             System.out.println("ERROR: File cannot be deleted");
@@ -94,7 +131,31 @@ public class manageMediaController {
     }
 
     @FXML
-    private void createPlaylist(MouseEvent event) {
+    void handleAddToPlaylistAction(ActionEvent event) {
+        String selectedSongTitle = songView.getSelectionModel().getSelectedItem();
+        String selectedPlaylistName = playlistView.getSelectionModel().getSelectedItem();
+        if (selectedSongTitle != null && selectedPlaylistName != null) {
+            User currentUser = CurrentUser.getInstance().getUser();
+            if (currentUser != null) {
+                Playlist selectedPlaylist = currentUser.getPlaylists().stream()
+                    .filter(playlist -> playlist.getName().equals(selectedPlaylistName))
+                    .findFirst()
+                    .orElse(null);
+                Song selectedSong = currentUser.getUploadedSongs().stream()
+                    .filter(song -> song.getTitle().equals(selectedSongTitle))
+                    .findFirst()
+                    .orElse(null);
+                if (selectedPlaylist != null && selectedSong != null) {
+                    selectedPlaylist.addSong(selectedSong);
+                    UserStorage.saveUser(currentUser);
+                    System.out.println("Song added to playlist!");
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void createPlaylist(ActionEvent event) {
         String name = playlistNameField.getText();
         if (!name.isEmpty()) {
             Playlist newPlaylist = playlistManager.createPlaylist(name);
@@ -113,8 +174,13 @@ public class manageMediaController {
                     Files.createDirectories(destinationDirectory);
                     Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
                     Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
-                    newPlaylist.addSong(new Song("Title", "Artist", destinationFile.toString()));
+                    newPlaylist.addSong(new Song(selectedFile.getName(), "Unknown Artist", destinationFile.toString()));
+
                     
+                    User currentUser = CurrentUser.getInstance().getUser();
+                    currentUser.addPlaylistToUser(newPlaylist);
+                    UserStorage.saveUser(currentUser);
+
                     updatePlaylistView();
                     playlistNameField.clear();
                     System.out.println("Playlist created and song added!");
@@ -128,14 +194,13 @@ public class manageMediaController {
         }
     }
 
-
     @FXML
-    private void refreshPlaylist(MouseEvent event) {
+    private void refreshPlaylist(ActionEvent event) {
         updatePlaylistView();
     }
 
     @FXML
-    private void deletePlaylist(MouseEvent event) {
+    private void deletePlaylist(ActionEvent event) {
         String selectedPlaylistName = playlistView.getSelectionModel().getSelectedItem();
         if (selectedPlaylistName != null) {
             playlistManager.deletePlaylist(selectedPlaylistName);
@@ -145,6 +210,12 @@ public class manageMediaController {
                     .map(Path::toFile)
                     .forEach(File::delete);
                 Files.deleteIfExists(playlistDirectory);
+
+                
+                User currentUser = CurrentUser.getInstance().getUser();
+                currentUser.removePlaylistFromUser(new Playlist(selectedPlaylistName));
+                UserStorage.saveUser(currentUser);
+
                 updatePlaylistView();
                 System.out.println("Playlist deleted!");
             } catch (IOException e) {
@@ -154,15 +225,8 @@ public class manageMediaController {
         }
     }
 
-    private void updatePlaylistView() {
-        playlistView.getItems().clear();
-        for (Playlist playlist : playlistManager.getAllPlaylists()) {
-            playlistView.getItems().add(playlist.getName());
-        }
-    }
-
     @FXML
-    void goToMainMenu(MouseEvent event) {
+    void goToMainMenu(ActionEvent event) {
         try {
             App.setRoot("menu");
         } catch (IOException e) {
