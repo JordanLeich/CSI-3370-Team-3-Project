@@ -88,8 +88,8 @@ public class musicPlayerController {
             });
         }
 
-        volumeSlider.setValue(50); // Set initial volume slider value
-        volumeTextLabel.setText("50%"); // Set initial volume text label
+        volumeSlider.setValue(50); 
+        volumeTextLabel.setText("50%"); 
         volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (mediaPlayer != null) {
                 mediaPlayer.setVolume(newVal.doubleValue() / 100.0);
@@ -211,7 +211,7 @@ public class musicPlayerController {
                 currentIndex = 0;
                 updateSongView();
                 if (!playlist.isEmpty()) {
-                    loadMedia(playlist.get(currentIndex), false); // Load first song without autoplay
+                    loadMedia(playlist.get(currentIndex), false); 
                 } else {
                     System.out.println("Selected playlist is empty.");
                 }

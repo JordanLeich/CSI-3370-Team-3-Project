@@ -6,22 +6,34 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.registerController">
    <children>
-      <Button fx:id="accountExistButton" layoutX="232.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#goToLogin" prefHeight="26.0" prefWidth="110.0" text="Have an account?" />
-      <Button fx:id="attemptRegisterButton" layoutX="233.0" layoutY="314.0" mnemonicParsing="false" onMouseClicked="#attemptRegisterUser" prefHeight="26.0" prefWidth="110.0" text="Register Account" />
-      <TextField fx:id="tfUsername" layoutX="214.0" layoutY="130.0" promptText="Username" />
-      <PasswordField fx:id="pfPassword" layoutX="213.0" layoutY="166.0" promptText="Password" />
-      <PasswordField fx:id="pfPasswordConfirmation" layoutX="214.0" layoutY="200.0" promptText="Confirm Password" />
+      <Button fx:id="accountExistButton" layoutX="232.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#goToLogin" prefHeight="26.0" prefWidth="110.0" style="-fx-background-color: #43E8F0;" text="Have an account?" textFill="WHITE" />
+      <Button fx:id="attemptRegisterButton" layoutX="233.0" layoutY="314.0" mnemonicParsing="false" onMouseClicked="#attemptRegisterUser" prefHeight="26.0" prefWidth="110.0" style="-fx-background-color: #43E8F0;" text="Register Account" textFill="WHITE" />
+      <TextField fx:id="tfUsername" layoutX="213.0" layoutY="76.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #43E8F0; -fx-border-width: 0px 0px 2px;" />
+      <PasswordField fx:id="pfPassword" layoutX="213.0" layoutY="122.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #43E8F0; -fx-border-width: 0px 0px 2px;" />
+      <PasswordField fx:id="pfPasswordConfirmation" layoutX="213.0" layoutY="165.0" promptText="Confirm Password" style="-fx-background-color: transparent; -fx-border-color: #43E8F0; -fx-border-width: 0px 0px 2px;" />
       <RadioButton fx:id="initialPackageYesRadio" layoutX="232.0" layoutY="257.0" mnemonicParsing="false" text="Yes">
          <toggleGroup>
             <ToggleGroup fx:id="radio" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="initialPackageNoRadio" layoutX="289.0" layoutY="257.0" mnemonicParsing="false" text="No" toggleGroup="$radio" />
       <Text layoutX="96.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like an intial package of songs to be added your to your account?" />
-      <Label fx:id="debugLabel" layoutX="273.0" layoutY="288.0" text="Label" />
+      <Label fx:id="debugLabel" layoutX="273.0" layoutY="288.0" />
+      <ImageView fitHeight="45.0" fitWidth="29.0" layoutX="169.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons8-user-40.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="29.0" fitWidth="46.0" layoutX="169.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons8-password-50.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

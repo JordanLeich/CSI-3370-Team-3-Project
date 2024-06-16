@@ -31,8 +31,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        
-        //if you want to see/test things like objects or printing stuff you can put it here and check your system output
         launch();
     }
 }

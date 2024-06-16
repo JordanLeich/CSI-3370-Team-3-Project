@@ -43,12 +43,12 @@ public class manageMediaController {
 
     private File selectedFile;
 
-    // Get playlist view
+    
     public ListView<String> getPlaylistView() {
         return playlistView;
     }
 
-    // Get song view
+   
     public ListView<String> getSongView() {
         return songView;
     }

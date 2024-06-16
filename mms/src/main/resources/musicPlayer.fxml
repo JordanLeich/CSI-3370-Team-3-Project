@@ -8,22 +8,22 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.musicPlayerController">
    <children>
-      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#goToMainMenu" text="Main Menu" />
-      <Button fx:id="playButton" layoutX="255.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#playButton" text="Play" />
-      <Button fx:id="pauseButton" layoutX="303.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#pauseButton" text="Pause" />
+      <Button fx:id="mainMenuButton" layoutX="16.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#goToMainMenu" style="-fx-background-color: #43E8F0;" text="Main Menu" textFill="WHITE" />
+      <Button fx:id="playButton" layoutX="257.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#playButton" style="-fx-background-color: #43E8F0;" text="Play" textFill="WHITE" />
+      <Button fx:id="pauseButton" layoutX="305.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#pauseButton" style="-fx-background-color: #43E8F0;" text="Pause" textFill="WHITE" />
       
-      <ListView fx:id="playlistView" layoutX="14.0" layoutY="240.0" prefHeight="180.0" prefWidth="250.0" />
-      <ListView fx:id="songView" layoutX="333.0" layoutY="240.0" prefHeight="180.0" prefWidth="250.0" />
-      <Slider fx:id="progressBar" layoutX="138.0" layoutY="116.0" prefHeight="14.0" prefWidth="292.0" />
+      <ListView fx:id="playlistView" layoutX="34.0" layoutY="240.0" prefHeight="180.0" prefWidth="250.0" style="-fx-background-color: #43E8F0;" />
+      <ListView fx:id="songView" layoutX="342.0" layoutY="240.0" prefHeight="180.0" prefWidth="250.0" style="-fx-background-color: #43E8F0;" />
+      <Slider fx:id="progressBar" layoutX="140.0" layoutY="116.0" prefHeight="14.0" prefWidth="292.0" />
       <Slider fx:id="volumeSlider" layoutX="492.0" layoutY="91.0" orientation="VERTICAL" prefHeight="66.0" prefWidth="14.0" />
-      <Label fx:id="elapsedTimeLabel" layoutX="103.0" layoutY="115.0" text="00:00" />
-      <Label fx:id="totalTimeLabel" layoutX="432.0" layoutY="115.0" text="00:00" />
+      <Label fx:id="elapsedTimeLabel" layoutX="105.0" layoutY="115.0" text="00:00" />
+      <Label fx:id="totalTimeLabel" layoutX="434.0" layoutY="115.0" text="00:00" />
       <Label fx:id="volumeTextLabel" layoutX="522.0" layoutY="115.0" />
-      <Label fx:id="songNameLabel" layoutX="188.0" layoutY="76.0" prefHeight="17.0" prefWidth="144.0" text="Song Name" />
-      <Label fx:id="artistNameLabel" layoutX="342.0" layoutY="76.0" text="Artist" />
+      <Label fx:id="songNameLabel" layoutX="190.0" layoutY="76.0" prefHeight="17.0" prefWidth="144.0" text="Song Name" />
+      <Label fx:id="artistNameLabel" layoutX="344.0" layoutY="76.0" text="Artist" />
       <Label layoutX="124.0" layoutY="212.0" text="Playlists" />
       <Label layoutX="444.0" layoutY="212.0" text="Songs" />
-      <Button fx:id="previousSongButton" layoutX="188.0" layoutY="145.0" mnemonicParsing="false" onAction="#switchToPreviousSong" text="Previous" />
-      <Button fx:id="nextSongButton" layoutX="357.0" layoutY="145.0" mnemonicParsing="false" onAction="#switchToNextSong" text="Next" />
+      <Button fx:id="previousSongButton" layoutX="190.0" layoutY="145.0" mnemonicParsing="false" onAction="#switchToPreviousSong" style="-fx-background-color: #43E8F0;" text="Previous" textFill="WHITE" />
+      <Button fx:id="nextSongButton" layoutX="359.0" layoutY="145.0" mnemonicParsing="false" onAction="#switchToNextSong" style="-fx-background-color: #43E8F0;" text="Next" textFill="WHITE" />
    </children>
 </AnchorPane>
