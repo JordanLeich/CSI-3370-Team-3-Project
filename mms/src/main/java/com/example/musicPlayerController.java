@@ -9,12 +9,14 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
+import javafx.util.Duration; //to use ListView library
+
 
 public class musicPlayerController {
 
@@ -23,6 +25,16 @@ public class musicPlayerController {
     private List<Song> originalPlaylist;
     private int currentIndex = 0;
     private boolean isShuffle = false;
+
+   
+
+    //to let musicPlay accept  playlist and songviews views -------------------
+    @FXML
+    private ListView<String> playlistView;
+    @FXML
+    private ListView<String> songView;
+
+    
 
     @FXML
     private Button mainMenuButton;
@@ -64,7 +76,9 @@ public class musicPlayerController {
     private Label songNameLabel;
 
     @FXML
-private Label artistNameLabel;
+    private Label artistNameLabel;
+
+    
 
     @FXML
     void initialize() {
@@ -82,6 +96,11 @@ private Label artistNameLabel;
 
         // Initializes the media player with the first song
         loadMedia(playlist.get(currentIndex));
+
+        //to populate playlist and song
+        playlistView();
+        songView();
+
 
         // Binds the slider to the media player
         mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
@@ -238,4 +257,45 @@ private Label artistNameLabel;
         int seconds = (int) duration.toSeconds() % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }
+
+    //the playlist and song view here 
+    //playlist
+    
+    private void playlistView()
+    {
+        if (playlistView != null) {
+           playlistView.getItems().clear();
+            User currentUser = CurrentUser.getInstance().getUser();
+       
+            if (currentUser != null) {
+                for (Playlist playlist : currentUser.getPlaylists()) {
+                    playlistView.getItems().add(playlist.getName());
+                }
+        }
+    }
+
+
+    }
+
+    
+    //song
+    private void songView() {
+        if (songView != null) {
+           songView.getItems().clear();
+            User currentUser = CurrentUser.getInstance().getUser();
+            if (currentUser != null) {
+                for (Song song : currentUser.getUploadedSongs()) {
+                    songView.getItems().add(song.getTitle());
+                }
+            }
+        }
+
+    }
+
+
+    
+   
+   
+
+   
 }

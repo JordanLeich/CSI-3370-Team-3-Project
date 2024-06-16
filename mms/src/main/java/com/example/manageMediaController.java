@@ -47,6 +47,16 @@ public class manageMediaController {
 
     private File selectedFile;
 
+    //getPlaylist View >> we need these 2 so we can use them in the manage media scene
+    public ListView<String> getPlaylistView() {
+        return playlistView;
+    }
+
+    //getSong view
+    public ListView<String> getSongView() {
+        return songView;
+    }
+
     @FXML
     public void initialize() {
         playlistManager = new PlaylistManager();
