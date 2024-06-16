@@ -258,9 +258,8 @@ public class musicPlayerController {
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-    //the playlist and song view here 
+    //the playlist and song view here --------------------------------
     //playlist
-    
     private void playlistView()
     {
         if (playlistView != null) {
@@ -271,26 +270,122 @@ public class musicPlayerController {
                 for (Playlist playlist : currentUser.getPlaylists()) {
                     playlistView.getItems().add(playlist.getName());
                 }
-        }
+
+                
+            }   
+        
+        }   
+
     }
 
+    //playlistView to play
+    private void PlayPlaylistfromView(String PlaylistName)
+    {
+       if (playlistView != null) {
+   
 
-    }
+            User currentUser = CurrentUser.getInstance().getUser();
+           
+            Playlist selectedPlaylist = null;
+
+            if (currentUser != null) {
+                for (Playlist playlist : currentUser.getPlaylists()) {
+                   if (playlist.getName().equals(PlaylistName))
+                   {
+                    selectedPlaylist = playlist;
+                       break;
+                   }
+                      
+               }
+
+               if (selectedPlaylist != null) {
+                //
+                   
+               }
+               else
+               {
+                   System.out.println("No Playlist is selected to play or playlist empty");
+               }
+           }
+
+       
+       }
+  
+   } 
+
 
     
     //song
     private void songView() {
+
         if (songView != null) {
-           songView.getItems().clear();
+        
+
             User currentUser = CurrentUser.getInstance().getUser();
+
             if (currentUser != null) {
                 for (Song song : currentUser.getUploadedSongs()) {
                     songView.getItems().add(song.getTitle());
+                    
+                }
+
+
+            }
+
+            //event handler
+            songView.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1) {
+                    String selectedSongTitle = songView.getSelectionModel().getSelectedItem();
+                    if (selectedSongTitle != null) {
+                        PlaySongfromView(selectedSongTitle);
+                    }
+                }
+            });
+
+            
+        }
+    }
+
+
+     //play items from songView 
+     private void PlaySongfromView(String songName)
+     {
+        if (songView != null) {
+    
+ 
+             User currentUser = CurrentUser.getInstance().getUser();
+            
+             Song selectedSong = null;
+
+             if (currentUser != null) {
+                 for (Song song : currentUser.getUploadedSongs()) {
+                    if (song.getTitle().equals(songName))
+                    {
+                        selectedSong = song;
+                        break;
+                    }
+                       
+                }
+
+                if (selectedSong != null) {
+                    loadMedia(selectedSong);
+                }
+                else
+                {
+                    System.out.println("No song is selected to play");
                 }
             }
-        }
 
-    }
+        
+        }
+            
+
+
+    
+    
+
+
+
 
 
     
@@ -298,4 +393,5 @@ public class musicPlayerController {
    
 
    
+    } 
 }
