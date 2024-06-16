@@ -278,6 +278,8 @@ public class musicPlayerController {
 
     }
 
+
+    
     //playlistView to play
     private void PlayPlaylistfromView(String PlaylistName)
     {
@@ -299,7 +301,7 @@ public class musicPlayerController {
                }
 
                if (selectedPlaylist != null) {
-                //
+                loadMedia(selectedPlaylist);
                    
                }
                else
@@ -368,7 +370,7 @@ public class musicPlayerController {
                 }
 
                 if (selectedSong != null) {
-                    loadMedia(selectedSong);
+                    loadMedia(selectedSong); 
                 }
                 else
                 {
