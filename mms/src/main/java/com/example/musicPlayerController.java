@@ -3,56 +3,41 @@ package com.example;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration; //to use ListView library
-
+import javafx.util.Duration;
 
 public class musicPlayerController {
 
     private MediaPlayer mediaPlayer;
     private List<Song> playlist;
-    private List<Song> originalPlaylist;
     private int currentIndex = 0;
-    private boolean isShuffle = false;
 
-   
-
-    //to let musicPlay accept  playlist and songviews views -------------------
     @FXML
     private ListView<String> playlistView;
     @FXML
     private ListView<String> songView;
 
-    
-
     @FXML
     private Button mainMenuButton;
+
+    @FXML
+    private Label volumeTextLabel;
 
     @FXML
     private Button pauseButton;
 
     @FXML
     private Button playButton;
-
-    @FXML
-    private Button stopButton;
-
-    @FXML
-    private Button nextButton;
-
-    @FXML
-    private Button previousButton;
 
     @FXML
     private Slider progressBar;
@@ -67,145 +52,98 @@ public class musicPlayerController {
     private Label totalTimeLabel;
 
     @FXML
-    private ToggleButton repeatButton;
-
-    @FXML
-    private ToggleButton shuffleButton;
-
-    @FXML
     private Label songNameLabel;
 
     @FXML
     private Label artistNameLabel;
 
-    
-
     @FXML
     void initialize() {
-        // Initializes playlist
         playlist = new ArrayList<>();
-        playlist.add(new Song("Deeper", "Unknown Artist", "mms\\src\\main\\resources\\audio\\Deeper.mp3"));
-        playlist.add(new Song("Chill 1", "Unknown Artist", "mms\\src\\main\\resources\\audio\\Chill 1.mp3"));
-        playlist.add(new Song("Chill 2", "Unknown Artist", "mms\\src\\main\\resources\\audio\\Chill 2.mp3"));
-        playlist.add(new Song("Chill 3", "Unknown Artist", "mms\\src\\main\\resources\\audio\\Chill 3.mp3"));
-        playlist.add(new Song("Spongeboy", "Spongeboy", "mms\\src\\main\\resources\\audio\\spongeboy.mp3"));
-        // Adds more songs as needed
 
-        // Stores the original order of the playlist you're in
-        originalPlaylist = new ArrayList<>(playlist);
+        if (!playlist.isEmpty()) {
+            loadMedia(playlist.get(currentIndex), false);
+        } else {
+            System.out.println("Playlist is empty, no media to load.");
+        }
 
-        // Initializes the media player with the first song
-        loadMedia(playlist.get(currentIndex));
-
-        //to populate playlist and song
         playlistView();
         songView();
 
+        if (mediaPlayer != null) {
+            mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+                if (!progressBar.isValueChanging()) {
+                    progressBar.setValue(newTime.toSeconds());
+                    elapsedTimeLabel.setText(formatTime(newTime));
+                }
+            });
 
-        // Binds the slider to the media player
-        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
-            if (!progressBar.isValueChanging()) {
-                progressBar.setValue(newTime.toSeconds());
-                elapsedTimeLabel.setText(formatTime(newTime));
-            }
-        });
+            progressBar.setOnMouseClicked(event -> {
+                mediaPlayer.seek(Duration.seconds(progressBar.getValue()));
+            });
 
-        progressBar.setOnMouseClicked(event -> {
-            mediaPlayer.seek(Duration.seconds(progressBar.getValue()));
-        });
+            mediaPlayer.setOnReady(() -> {
+                progressBar.setMax(mediaPlayer.getMedia().getDuration().toSeconds());
+                totalTimeLabel.setText(formatTime(mediaPlayer.getMedia().getDuration()));
+            });
+        }
 
-        // Sets the maximum value of the slider to media duration
-        mediaPlayer.setOnReady(() -> {
-            progressBar.setMax(mediaPlayer.getMedia().getDuration().toSeconds());
-            totalTimeLabel.setText(formatTime(mediaPlayer.getMedia().getDuration()));
-        });
-
-        // Initializes volume slider
-        volumeSlider.setValue(mediaPlayer.getVolume() * 100); 
+        volumeSlider.setValue(50); // Set initial volume slider value
+        volumeTextLabel.setText("50%"); // Set initial volume text label
         volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (mediaPlayer != null) {
-                mediaPlayer.setVolume(newVal.doubleValue() / 100.0); 
+                mediaPlayer.setVolume(newVal.doubleValue() / 100.0);
             }
-            System.out.println("I moved the volumeSlider!");
+            volumeTextLabel.setText(String.format("%.0f%%", newVal.doubleValue()));
+            System.out.println("Volume adjusted to " + newVal);
         });
-
-        // Handles the repeat button toggle
-        repeatButton.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-            mediaPlayer.setCycleCount(isSelected ? MediaPlayer.INDEFINITE : 1);
-        });
-
-        // Handles the shuffle button toggle
-        shuffleButton.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-            if (isSelected) {
-                enableShuffle();
-            } else {
-                disableShuffle();
-            }
-        });
-
-        // Disables the the previous button initially until a song is played 
-        previousButton.setDisable(true);
     }
 
-    private void loadMedia(Song song) {
+    private void loadMedia(Song song, boolean autoplay) {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
         Media media = new Media(new File(song.getFilePath()).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setVolume(volumeSlider.getValue() / 100.0); // Scale the slider value to 0-1
+        mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
         mediaPlayer.setOnEndOfMedia(this::playNext);
-        mediaPlayer.play();
-        
-        // Bind the slider to the new media player instance
+
+        if (autoplay) {
+            mediaPlayer.play();
+        }
+
         mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
             if (!progressBar.isValueChanging()) {
                 progressBar.setValue(newTime.toSeconds());
                 elapsedTimeLabel.setText(formatTime(newTime));
             }
         });
-        
+
         mediaPlayer.setOnReady(() -> {
             progressBar.setMax(mediaPlayer.getMedia().getDuration().toSeconds());
             totalTimeLabel.setText(formatTime(mediaPlayer.getMedia().getDuration()));
         });
-    
-        // Updates the song name label
+
         songNameLabel.setText("Playing... " + song.getTitle());
-        // Updates the artist name label
         artistNameLabel.setText("Artist: " + song.getArtist());
     }
 
     private void playNext() {
         currentIndex = (currentIndex + 1) % playlist.size();
-        loadMedia(playlist.get(currentIndex));
-        previousButton.setDisable(currentIndex == 0);
+        loadMedia(playlist.get(currentIndex), true);
     }
 
     @FXML
-    void nextButton(MouseEvent event) {
+    void switchToNextSong(ActionEvent event) {
         playNext();
     }
 
     @FXML
-    void previousButton(MouseEvent event) {
+    void switchToPreviousSong(ActionEvent event) {
         if (currentIndex > 0) {
             currentIndex--;
-            loadMedia(playlist.get(currentIndex));
-            previousButton.setDisable(currentIndex == 0);
+            loadMedia(playlist.get(currentIndex), true);
         }
-    }
-
-    private void enableShuffle() {
-        isShuffle = true;
-        Collections.shuffle(playlist);
-        currentIndex = 0; // Reset to the first song in the shuffled list
-    }
-
-    private void disableShuffle() {
-        isShuffle = false;
-        playlist = new ArrayList<>(originalPlaylist);
-        currentIndex = 0; // Reset to the first song in the original list
     }
 
     @FXML
@@ -223,32 +161,11 @@ public class musicPlayerController {
     }
 
     @FXML
-    void stopButton(MouseEvent event) {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-        }
-    }
-
-    @FXML
     void goToMainMenu(MouseEvent event) {
         try {
             App.setRoot("menu");
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void handleRepeatToggle(MouseEvent event) {
-        mediaPlayer.setCycleCount(repeatButton.isSelected() ? MediaPlayer.INDEFINITE : 1);
-    }
-
-    @FXML
-    void handleShuffleToggle(MouseEvent event) {
-        if (shuffleButton.isSelected()) {
-            enableShuffle();
-        } else {
-            disableShuffle();
         }
     }
 
@@ -258,83 +175,71 @@ public class musicPlayerController {
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-    //the playlist and song view here --------------------------------
-    //playlist
-    private void playlistView()
-    {
+    private void playlistView() {
         if (playlistView != null) {
-           playlistView.getItems().clear();
+            playlistView.getItems().clear();
             User currentUser = CurrentUser.getInstance().getUser();
-       
+
             if (currentUser != null) {
                 for (Playlist playlist : currentUser.getPlaylists()) {
                     playlistView.getItems().add(playlist.getName());
                 }
+            }
 
-                
-            }   
-        
-        }   
-
+            playlistView.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1) {
+                    String selectedPlaylistName = playlistView.getSelectionModel().getSelectedItem();
+                    if (selectedPlaylistName != null) {
+                        PlayPlaylistfromView(selectedPlaylistName);
+                    }
+                }
+            });
+        }
     }
 
+    private void PlayPlaylistfromView(String playlistName) {
+        User currentUser = CurrentUser.getInstance().getUser();
 
-    
-    //playlistView to play
-    private void PlayPlaylistfromView(String PlaylistName)
-    {
-       if (playlistView != null) {
-   
+        if (currentUser != null) {
+            Playlist selectedPlaylist = currentUser.getPlaylists().stream()
+                .filter(playlist -> playlist.getName().equals(playlistName))
+                .findFirst()
+                .orElse(null);
 
-            User currentUser = CurrentUser.getInstance().getUser();
-           
-            Playlist selectedPlaylist = null;
+            if (selectedPlaylist != null) {
+                playlist = selectedPlaylist.getSongs();
+                currentIndex = 0;
+                updateSongView();
+                if (!playlist.isEmpty()) {
+                    loadMedia(playlist.get(currentIndex), false); // Load first song without autoplay
+                } else {
+                    System.out.println("Selected playlist is empty.");
+                }
+            } else {
+                System.out.println("No playlist is selected to play or playlist is empty.");
+            }
+        }
+    }
 
-            if (currentUser != null) {
-                for (Playlist playlist : currentUser.getPlaylists()) {
-                   if (playlist.getName().equals(PlaylistName))
-                   {
-                    selectedPlaylist = playlist;
-                       break;
-                   }
-                      
-               }
-
-               if (selectedPlaylist != null) {
-                loadMedia(selectedPlaylist);
-                   
-               }
-               else
-               {
-                   System.out.println("No Playlist is selected to play or playlist empty");
-               }
-           }
-
-       
-       }
-  
-   } 
-
-
-    
-    //song
-    private void songView() {
-
+    private void updateSongView() {
         if (songView != null) {
-        
+            songView.getItems().clear();
+            for (Song song : playlist) {
+                songView.getItems().add(song.getTitle());
+            }
+        }
+    }
 
+    private void songView() {
+        if (songView != null) {
             User currentUser = CurrentUser.getInstance().getUser();
 
             if (currentUser != null) {
                 for (Song song : currentUser.getUploadedSongs()) {
                     songView.getItems().add(song.getTitle());
-                    
                 }
-
-
             }
 
-            //event handler
             songView.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1) {
                     String selectedSongTitle = songView.getSelectionModel().getSelectedItem();
@@ -343,57 +248,23 @@ public class musicPlayerController {
                     }
                 }
             });
-
-            
         }
     }
 
-
-     //play items from songView 
-     private void PlaySongfromView(String songName)
-     {
+    private void PlaySongfromView(String songName) {
         if (songView != null) {
-    
- 
-             User currentUser = CurrentUser.getInstance().getUser();
-            
-             Song selectedSong = null;
+            User currentUser = CurrentUser.getInstance().getUser();
 
-             if (currentUser != null) {
-                 for (Song song : currentUser.getUploadedSongs()) {
-                    if (song.getTitle().equals(songName))
-                    {
-                        selectedSong = song;
-                        break;
-                    }
-                       
-                }
+            Song selectedSong = currentUser.getUploadedSongs().stream()
+                .filter(song -> song.getTitle().equals(songName))
+                .findFirst()
+                .orElse(null);
 
-                if (selectedSong != null) {
-                    loadMedia(selectedSong); 
-                }
-                else
-                {
-                    System.out.println("No song is selected to play");
-                }
+            if (selectedSong != null) {
+                loadMedia(selectedSong, true);
+            } else {
+                System.out.println("No song is selected to play.");
             }
-
-        
         }
-            
-
-
-    
-    
-
-
-
-
-
-    
-   
-   
-
-   
-    } 
+    }
 }

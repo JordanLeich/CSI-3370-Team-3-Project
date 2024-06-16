@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -32,9 +31,6 @@ public class manageMediaController {
     private TextField SeachID;
 
     @FXML
-    private ImageView searchImageid;
-
-    @FXML
     private ListView<String> playlistView;
 
     @FXML
@@ -47,12 +43,12 @@ public class manageMediaController {
 
     private File selectedFile;
 
-    //getPlaylist View >> we need these 2 so we can use them in the manage media scene
+    // Get playlist view
     public ListView<String> getPlaylistView() {
         return playlistView;
     }
 
-    //getSong view
+    // Get song view
     public ListView<String> getSongView() {
         return songView;
     }
@@ -120,24 +116,24 @@ public class manageMediaController {
 
     @FXML
     void deleteSelectedSong(ActionEvent event) {
-        FileChooser fileSelect = new FileChooser();
-        Path destinationDirectory = Path.of("mms", "src", "main", "resources", "audio");
-
-        Stage stage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        selectedFile = fileSelect.showOpenDialog(stage2);
-
-        if (selectedFile != null && selectedFile.exists() && selectedFile.delete()) {
-            
+        String selectedSongTitle = songView.getSelectionModel().getSelectedItem();
+        if (selectedSongTitle != null) {
             User currentUser = CurrentUser.getInstance().getUser();
-            currentUser.removeSongFromUser(new Song(selectedFile.getName(), "Unknown Artist", selectedFile.toString()));
-            UserStorage.saveUser(currentUser);
-
-            updateSongView();
-            System.out.println("File successfully deleted");
+            Song selectedSong = currentUser.getUploadedSongs().stream()
+                .filter(song -> song.getTitle().equals(selectedSongTitle))
+                .findFirst()
+                .orElse(null);
+            if (selectedSong != null) {
+                currentUser.removeSongFromUser(selectedSong);
+                UserStorage.saveUser(currentUser);
+                updateSongView();
+                System.out.println("Song successfully deleted from user.");
+            } else {
+                System.out.println("Selected song not found.");
+            }
         } else {
-            System.out.println("ERROR: File cannot be deleted");
+            System.out.println("No song selected for deletion.");
         }
-        System.out.println("Delete button clicked!");
     }
 
     @FXML
@@ -168,39 +164,17 @@ public class manageMediaController {
     private void createPlaylist(ActionEvent event) {
         String name = playlistNameField.getText();
         if (!name.isEmpty()) {
-            Playlist newPlaylist = playlistManager.createPlaylist(name);
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Add Songs to Playlist");
-            fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Audio Files", "*.mp3", "*.wav", "*.aac", "*.ogg", "*.m4a"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
-            );
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            File selectedFile = fileChooser.showOpenDialog(stage);
-
-            if (selectedFile != null) {
-                try {
-                    Path destinationDirectory = Path.of("mms", "src", "main", "resources", "playlists", name);
-                    Files.createDirectories(destinationDirectory);
-                    Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
-                    Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
-                    newPlaylist.addSong(new Song(selectedFile.getName(), "Unknown Artist", destinationFile.toString()));
-
-                    
-                    User currentUser = CurrentUser.getInstance().getUser();
-                    currentUser.addPlaylistToUser(newPlaylist);
-                    UserStorage.saveUser(currentUser);
-
-                    updatePlaylistView();
-                    playlistNameField.clear();
-                    System.out.println("Playlist created and song added!");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("Error creating playlist or adding song. Please try again.");
-                }
-            } else {
-                System.out.println("File selection cancelled.");
+            User currentUser = CurrentUser.getInstance().getUser();
+            if (currentUser != null) {
+                Playlist newPlaylist = new Playlist(name);
+                currentUser.addPlaylistToUser(newPlaylist);
+                UserStorage.saveUser(currentUser);
+                updatePlaylistView();
+                playlistNameField.clear();
+                System.out.println("Playlist created!");
             }
+        } else {
+            System.out.println("Playlist name cannot be empty.");
         }
     }
 
@@ -213,25 +187,21 @@ public class manageMediaController {
     private void deletePlaylist(ActionEvent event) {
         String selectedPlaylistName = playlistView.getSelectionModel().getSelectedItem();
         if (selectedPlaylistName != null) {
-            playlistManager.deletePlaylist(selectedPlaylistName);
-            Path playlistDirectory = Path.of("mms", "src", "main", "resources", "playlists", selectedPlaylistName);
-            try {
-                Files.walk(playlistDirectory)
-                    .map(Path::toFile)
-                    .forEach(File::delete);
-                Files.deleteIfExists(playlistDirectory);
-
-                
-                User currentUser = CurrentUser.getInstance().getUser();
-                currentUser.removePlaylistFromUser(new Playlist(selectedPlaylistName));
-                UserStorage.saveUser(currentUser);
-
-                updatePlaylistView();
-                System.out.println("Playlist deleted!");
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Error deleting playlist. Please try again.");
+            User currentUser = CurrentUser.getInstance().getUser();
+            if (currentUser != null) {
+                Playlist selectedPlaylist = currentUser.getPlaylists().stream()
+                    .filter(playlist -> playlist.getName().equals(selectedPlaylistName))
+                    .findFirst()
+                    .orElse(null);
+                if (selectedPlaylist != null) {
+                    currentUser.removePlaylistFromUser(selectedPlaylist);
+                    UserStorage.saveUser(currentUser);
+                    updatePlaylistView();
+                    System.out.println("Playlist deleted!");
+                }
             }
+        } else {
+            System.out.println("No playlist selected for deletion.");
         }
     }
 

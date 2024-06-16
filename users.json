@@ -2,47 +2,71 @@
   "username" : "1",
   "password" : "1",
   "playlists" : [ {
-    "name" : "fesfse",
-    "songs" : [ {
-      "title" : "sample-6s.mp3",
-      "artist" : "Unknown Artist",
-      "filePath" : "mms\\src\\main\\resources\\playlists\\fesfse\\sample-6s.mp3"
-    }, {
-      "title" : "sample-6s.mp3",
-      "artist" : "Unknown Artist",
-      "filePath" : "mms\\src\\main\\resources\\audio\\sample-6s.mp3"
-    }, {
-      "title" : "sample-3s.mp3",
-      "artist" : "Unknown Artist",
-      "filePath" : "mms\\src\\main\\resources\\audio\\sample-3s.mp3"
-    } ]
-  }, {
-    "name" : "anorher",
+    "name" : "Playlist 1",
     "songs" : [ {
       "title" : "sample-15s.mp3",
       "artist" : "Unknown Artist",
-      "filePath" : "mms\\src\\main\\resources\\playlists\\anorher\\sample-15s.mp3"
+      "filePath" : "mms\\src\\main\\resources\\playlists\\Playlist 1\\sample-15s.mp3"
     }, {
-      "title" : "sample-3s.mp3",
+      "title" : "Deeper",
       "artist" : "Unknown Artist",
-      "filePath" : "mms\\src\\main\\resources\\audio\\sample-3s.mp3"
+      "filePath" : "mms\\src\\main\\resources\\audio\\Deeper.mp3"
+    }, {
+      "title" : "Chill 1",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\audio\\Chill 1.mp3"
+    }, {
+      "title" : "Chill 2",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\audio\\Chill 2.mp3"
+    }, {
+      "title" : "Chill 3",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\audio\\Chill 3.mp3"
+    }, {
+      "title" : "Spongeboy",
+      "artist" : "Spongeboy",
+      "filePath" : "mms\\src\\main\\resources\\audio\\spongeboy.mp3"
     }, {
       "title" : "sample-6s.mp3",
       "artist" : "Unknown Artist",
       "filePath" : "mms\\src\\main\\resources\\audio\\sample-6s.mp3"
     } ]
+  }, {
+    "name" : "123213451",
+    "songs" : [ {
+      "title" : "Deeper",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\audio\\Deeper.mp3"
+    }, {
+      "title" : "Chill 1",
+      "artist" : "Unknown Artist",
+      "filePath" : "mms\\src\\main\\resources\\audio\\Chill 1.mp3"
+    } ]
   } ],
   "uploadedSongs" : [ {
+    "title" : "Deeper",
+    "artist" : "Unknown Artist",
+    "filePath" : "mms\\src\\main\\resources\\audio\\Deeper.mp3"
+  }, {
+    "title" : "Chill 1",
+    "artist" : "Unknown Artist",
+    "filePath" : "mms\\src\\main\\resources\\audio\\Chill 1.mp3"
+  }, {
+    "title" : "Chill 2",
+    "artist" : "Unknown Artist",
+    "filePath" : "mms\\src\\main\\resources\\audio\\Chill 2.mp3"
+  }, {
+    "title" : "Chill 3",
+    "artist" : "Unknown Artist",
+    "filePath" : "mms\\src\\main\\resources\\audio\\Chill 3.mp3"
+  }, {
+    "title" : "Spongeboy",
+    "artist" : "Spongeboy",
+    "filePath" : "mms\\src\\main\\resources\\audio\\spongeboy.mp3"
+  }, {
     "title" : "sample-6s.mp3",
     "artist" : "Unknown Artist",
     "filePath" : "mms\\src\\main\\resources\\audio\\sample-6s.mp3"
-  }, {
-    "title" : "sample-3s.mp3",
-    "artist" : "Unknown Artist",
-    "filePath" : "mms\\src\\main\\resources\\audio\\sample-3s.mp3"
-  }, {
-    "title" : "sample-15s.mp3",
-    "artist" : "Unknown Artist",
-    "filePath" : "mms\\src\\main\\resources\\audio\\sample-15s.mp3"
   } ]
 } ]
