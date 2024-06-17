@@ -7,15 +7,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menuController">
    <children>
-      <Button fx:id="musicPlayerMenuButton" layoutX="258.0" layoutY="62.0" mnemonicParsing="false" onMouseClicked="#switchToMusicPlayerScreen" text="Music Player" />
-      <Button fx:id="manageMediaSceneButton" layoutX="252.0" layoutY="97.0" mnemonicParsing="false" onMouseClicked="#switchToManageMediaScene" text="Manage Media" />
-      <Text layoutX="135.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Music Management System (MMS)">
+      <Button fx:id="musicPlayerMenuButton" layoutX="250.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#switchToMusicPlayerScreen" style="-fx-pref-width: 100px; -fx-background-color: #43E8F0;" text="Music Player" />
+      <Button fx:id="manageMediaSceneButton" layoutX="250.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#switchToManageMediaScene" style="-fx-pref-width: 100px; -fx-background-color: #43E8F0;" text="Manage Media" />
+      <Text layoutX="77.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Music Management System (MMS)">
          <font>
             <Font name="Bebas Neue Regular" size="30.0" />
          </font>
       </Text>
-      <Button fx:id="creditsButton" layoutX="272.0" layoutY="134.0" mnemonicParsing="false" text="Credits" onAction="#openGitHubPage" />
-      <Button fx:id="quitButton" layoutX="280.0" layoutY="212.0" mnemonicParsing="false" onMouseClicked="#quitApplication" text="Quit" />
-      <Button fx:id="logoutButton" layoutX="269.0" layoutY="174.0" mnemonicParsing="false" onMouseClicked="#goToLogin" text="Log Out" />
+      <Button fx:id="creditsButton" layoutX="250.0" layoutY="142.0" mnemonicParsing="false" onAction="#openGitHubPage" style="-fx-pref-width: 100px; -fx-background-color: #43E8F0;" text="Credits" />
+      <Button fx:id="quitButton" layoutX="250.0" layoutY="209.0" mnemonicParsing="false" onMouseClicked="#quitApplication" style="-fx-pref-width: 100px; -fx-background-color: #43E8F0;" text="Quit" />
+      <Button fx:id="logoutButton" layoutX="250.0" layoutY="177.0" mnemonicParsing="false" onMouseClicked="#goToLogin" style="-fx-pref-width: 100px; -fx-background-color: #43E8F0;" text="Log Out" />
    </children>
 </AnchorPane>

@@ -19,9 +19,6 @@ public class menuController {
     private Button manageMediaSceneButton;
 
     @FXML
-    private Button creditsButton;
-
-    @FXML
     void switchToMusicPlayerScreen(MouseEvent event) throws IOException {
         try {
             App.setRoot("musicPlayer");
